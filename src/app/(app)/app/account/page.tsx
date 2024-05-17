@@ -1,7 +1,16 @@
+import ContentBlock from '@/components/content-block';
+import H1 from '@/components/h1';
+
 const Page = () => {
   return (
-    <div>Account Page</div>
-  )
-}
+    <main>
+      <H1 className="my-8 text-white">Your Account</H1>
 
-export default Page
+      <ContentBlock className="h-[500px] flex justify-center items-center">
+        <p>Logged in as ...</p>
+      </ContentBlock>
+    </main>
+  );
+};
+
+export default Page;
