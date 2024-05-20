@@ -8,9 +8,13 @@ import { Textarea } from './ui/textarea';
 
 type PetFormProps = {
   actionType: 'add' | 'edit';
+  onFormSubmission: () => void;
 };
 
-export default function PetForm({ actionType }: PetFormProps) {
+export default function PetForm({
+  actionType,
+  onFormSubmission,
+}: PetFormProps) {
   const { handleAddPet } = usePetContext();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -18,13 +22,17 @@ export default function PetForm({ actionType }: PetFormProps) {
     const formData = new FormData(event.currentTarget);
     // const newPet = Object.fromEntries(formData.entries());
     const newPet = {
-      name: formData.get("name") as string,
-      ownerName: formData.get("ownerName") as string,
-      imageUrl: formData.get("imageUrl") as string || "https://bytegrad.com/course-assets/react-nextjs/pet-placeholder.png",
-      age: +(formData.get("age") as string) as number,
-      notes: formData.get("notes") as string,
+      name: formData.get('name') as string,
+      ownerName: formData.get('ownerName') as string,
+      imageUrl:
+        (formData.get('imageUrl') as string) ||
+        'https://bytegrad.com/course-assets/react-nextjs/pet-placeholder.png',
+      age: +(formData.get('age') as string) as number,
+      notes: formData.get('notes') as string,
     };
     handleAddPet(newPet);
+
+    onFormSubmission();
   };
 
   return (
