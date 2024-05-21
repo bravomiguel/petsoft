@@ -41,7 +41,9 @@ export default function PetContextProvider({
   };
 
   const handleAddPet = (newPet: Omit<Pet, 'id'>) => {
-    setPets((prev) => [...prev, { id: Date.now().toString(), ...newPet }]);
+    const id = Date.now().toString();
+    setPets((prev) => [...prev, { id, ...newPet }]);
+    setSelectedPetId(id);
   };
 
   const handleEditPet = (petId: string, newPetData: Omit<Pet, 'id'>) => {
