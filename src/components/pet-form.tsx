@@ -23,6 +23,8 @@ export default function PetForm({
   return (
     <form
       action={async (formData) => {
+        onFormSubmission();
+        
         const petData = {
           name: formData.get('name') as string,
           ownerName: formData.get('ownerName') as string,
@@ -37,7 +39,6 @@ export default function PetForm({
         } else {
           await handleEditPet(selectedPet!.id, petData);
         }
-        onFormSubmission();
       }}
       className="flex flex-col"
     >
