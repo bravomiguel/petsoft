@@ -1,12 +1,21 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { Pet } from '@prisma/client';
 
 import prisma from '@/lib/db';
 import { sleep } from '@/lib/utils';
-import { PetEssentials } from '@/lib/types';
 import { petFormSchema, petIdSchema } from '@/lib/validations';
+import { signIn } from '@/lib/auth';
+
+// --- user actions ---
+
+export async function logIn(formData: FormData) {
+  const authData = Object.fromEntries(formData.entries());
+
+  await signIn('credentials', authData);
+}
+
+// --- pet actions ---
 
 export async function addPet(pet: unknown) {
   await sleep(1000);
@@ -14,8 +23,8 @@ export async function addPet(pet: unknown) {
   const validatedPet = petFormSchema.safeParse(pet);
   if (!validatedPet.success) {
     return {
-      message: "Invalid pet data.",
-    }
+      message: 'Invalid pet data.',
+    };
   }
 
   try {
@@ -39,8 +48,8 @@ export async function editPet(petId: unknown, newPetData: unknown) {
 
   if (!validatedPetId.success || !validatedPet.success) {
     return {
-      message: "Invalid pet data.",
-    }
+      message: 'Invalid pet data.',
+    };
   }
 
   try {
@@ -66,8 +75,8 @@ export async function checkoutPet(petId: unknown) {
 
   if (!validatedPetId.success) {
     return {
-      message: "Invalid pet data.",
-    }
+      message: 'Invalid pet data.',
+    };
   }
 
   try {
