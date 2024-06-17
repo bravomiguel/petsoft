@@ -6,7 +6,7 @@ import bcrypt from 'bcryptjs';
 import prisma from '@/lib/db';
 import { sleep } from '@/lib/utils';
 import { authSchema, petFormSchema, petIdSchema } from '@/lib/validations';
-import { signIn, signOut } from '@/lib/auth';
+import { signIn, signOut } from '@/lib/auth-no-edge';
 import { checkAuth, getPetById } from '@/lib/server-utils';
 import { redirect } from 'next/navigation';
 import { Prisma } from '@prisma/client';

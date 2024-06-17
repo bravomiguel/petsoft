@@ -2,7 +2,7 @@ import 'server-only';
 
 import { redirect } from 'next/navigation';
 
-import { auth } from '@/lib/auth';
+import { auth } from '@/lib/auth-no-edge';
 import { Pet } from '@prisma/client';
 import prisma from './db';
 import { User } from 'next-auth';
@@ -26,11 +26,11 @@ export async function getPetsByUserId(userId: User['id']) {
   return pets;
 }
 
-export async function getUserByEmail(email: User["email"]) {
+export async function getUserByEmail(email: User['email']) {
   const user = await prisma.user.findUnique({
     where: {
       email: email ?? undefined,
-    }
+    },
   });
   return user;
 }
